@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  juice-chart:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-08-17T07:52:38.305688193-07:00"
+    description: A Helm chart for Juice Shop Application with CP-Nano
+    digest: 85b70c83db193a8649529b06c5ffee4f7310a2bbdda461355b0c7653da0823e0
+    name: juice-chart
+    type: application
+    urls:
+    - https://mnicholssync.github.com/cpWaapJuice/juice-chart-0.1.1.tgz
+    version: 0.1.1
+generated: "2020-08-17T07:52:38.30354499-07:00"
