@@ -1,0 +1,5 @@
+<!-- #######  THIS IS A COMMENT - Visible only in the source editor #########-->
+<h1><a id="user-content-cpwaapjuice" class="anchor" href="https://github.com/mnichols62/cpWaapJuice/blob/gh-pages/README.md#cpwaapjuice" aria-hidden="true"></a>cpWaapJuice</h1>
+<p>This Helm Chart deploys the OWASP Juice-shop app with an nginx ingress controller that is enhanced with Check Point's WAAP technology to provide Web Application and API Protection.</p>
+<p>Prerequisites: Creation of a portal.checkpoint.com account with access to "Infinity Next" The token for using the Check Point Nano agent Access to the private docker hub repo for mnicholssync Helm installed</p>
+<p>Instructions for deploying after repackage... Download the Helm Chart Extract the tgz file Modify the values.yaml file to use your WAAP token (generated in the Check Point Infinity Next Portal) and repackage Repackage the helm chart helm package Deploy the Helm chart helm install {your app name} helm juice-0.1.1.tgz</p>
