@@ -2,6 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+replicaCount: 1
+
 #Values for Check Point Nano Agent in Nginx Ingress Controller
 nanoToken: "35741c8e-a5fa-40b4-9c9a-b8dabde8956d-63f91f9b-d4a8-4bc0-b81a-e472d649f781"
 
@@ -9,8 +11,18 @@ image:
   nginxCtlCpRepo: "mnicholssync/nginx-ingress-ctl-cp:demo"
   cpRepo: "mnicholssync/nginx-ingress-ctl-cp:cp-agent-alpine"
 
+imagePullSecrets: []
 nameOverride: "juice-shop"
-fullnameOverride: "juice-shop-0.1.1"
+fullnameOverride: "juice-shop"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
 
 podAnnotations: {}
 
@@ -19,6 +31,8 @@ podSecurityContext: {}
 securityContext: {}
 
 service:
+  type: ClusterIP
+  port: 80
 
 ingress:
   enabled: false
