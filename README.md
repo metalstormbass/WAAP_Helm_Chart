@@ -34,7 +34,6 @@ These are additional optional flags:
 ```bash
 --set image.nginxCtlCpRepo="{repo location of the nginx image}"  
 --set image.cpRepo="{repo location of the Check Point Alpine image}" 
---set namespace="{your namespace}" 
 --set appURL="{DNS hostname of your application}"
 ```
 ## Uninstalling the Chart
