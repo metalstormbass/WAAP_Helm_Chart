@@ -1,3 +1,4 @@
+
 # Helm Chart for Check Point WAAP
 
 ## Introduction
@@ -50,7 +51,8 @@ Refer to [values.yaml](values.yaml) for the full run-down on defaults. These are
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```bash
-$ helm install my-release --set namespace=myapp checkpoint/cpWaapJuice
+$ helm install my-release --namespace=myapp checkpoint/cpWaapJuice --set nanoToken="3574..." --set appURL="juice-shop.checkpoint.com"
+
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
@@ -67,7 +69,6 @@ The following table lists the configurable parameters of this chart and their de
 | `image.nginxCtlCpRepo`                                             | Dockerhub location of the nginx image integrated with Check Point Waap                     | `mnicholssync/nginx-ingress-ctl-cp:demo`                                              |
 | `image.cpRepo`                                              | Dockerhub location of the Check Point Alpine image integrated with the NanoAgent              | `mnicholssync/nginx-ingress-ctl-cp:cp-agent-alpine`                                           |
 | `appURL`                                           | URL of the application (must resolve to Cluster IP address after deployment              | `juice-shop.checkpoint.com`                                          |
-| `namespace`                                           | K8s Deployment namespace               | `default`                         |
 | `nameoverride`                                           | Your application name               | `juice-shop`                         |
 
 ### Generating WaaP results and Testing the Application
