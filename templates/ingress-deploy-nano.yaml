@@ -1,12 +1,11 @@
-# The namespace used by the below example resources.
-# Need to change namespace if you are using a different namespace.
+# The deployment specification for nginx-ingress with the Check Point Alpine Module
 # To expose the Ingress controller pods, you can use a different service configuration, according to this guide:
 # https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-manifests/
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-ingress
-  namespace: default 
+  namespace: {{.Release.Namespace}}
 spec:
   selector:
    matchLabels:

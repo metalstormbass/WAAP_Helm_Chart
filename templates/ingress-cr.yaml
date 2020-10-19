@@ -1,4 +1,4 @@
-# The namespace used by the below example resources.
+# This defines the ClusterRoles needed for the app within the namespace
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
@@ -75,7 +75,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: default 
-  namespace: default
+  namespace: {{.Release.Namespace}}
 roleRef:
   kind: ClusterRole
   name: nginx-ingress

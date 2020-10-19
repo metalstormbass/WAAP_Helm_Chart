@@ -10,10 +10,11 @@ nanoToken: "insert your token here"
 image:
   nginxCtlCpRepo: "mnicholssync/nginx-ingress-ctl-cp:demo"
   cpRepo: "mnicholssync/nginx-ingress-ctl-cp:cp-agent-alpine"
-
+namespace: "default"
 imagePullSecrets: []
 nameOverride: "juice-shop"
 fullnameOverride: "juice-shop"
+appURL: "juice-shop.checkpoint.com"
 
 serviceAccount:
   # Specifies whether a service account should be created

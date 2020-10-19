@@ -1,10 +1,9 @@
-# The namespace used by the below example resources.
-# Need to change namespace if you are using a different namespace.
+# This configmap defines the nginx paramenters used for this deployment
 kind: ConfigMap
 apiVersion: v1
 metadata:
   name: nginx-config
-  namespace: default
+  namespace: {{.Release.Namespace}}
 data:
 #  proxy-protocol: "True"
   real-ip-header: "proxy_protocol"

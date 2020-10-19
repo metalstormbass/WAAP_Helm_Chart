@@ -1,5 +1,4 @@
-# The namespace used by the below example resources.
-# Need to change namespace if you are using a different namespace.
+# Custom Resource Definitions to associate nginx with the K8s virtual servers
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:

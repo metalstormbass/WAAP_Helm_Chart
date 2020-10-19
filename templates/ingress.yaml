@@ -4,7 +4,7 @@ metadata:
   name: ingress-configuration
 spec:
   rules:
-  - host: juice-shop.checkpoint.com 
+  - host: {{.Values.appURL}}
     http:
       paths:
       - path: /
