@@ -1,7 +1,13 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-configuration
+  name: nginx-config
+  annotations:
+    agentVersion: {{ .Chart.Version }}
+  labels:
+    app.kubernetes.io/name: nginx-config
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
 spec:
   rules:
   - host: {{.Values.appURL}}
@@ -9,5 +15,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: juice-shop
-          servicePort: 8080
+          serviceName: {{.Values.mysvcname}}
+          servicePort: {{.Values.mysvcport}}
