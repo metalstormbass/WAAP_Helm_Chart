@@ -5,16 +5,15 @@
 replicaCount: 1
 
 #Values for Check Point Nano Agent in Nginx Ingress Controller
-nanoToken: "insert your token here"
+#nanoToken: "insert your token here"
 
 image:
-  nginxCtlCpRepo: "mnicholssync/nginx-ingress-ctl-cp:demo"
-  cpRepo: "mnicholssync/nginx-ingress-ctl-cp:cp-agent-alpine"
-namespace: "default"
+  nginxCtlCpRepo: "checkpoint/infinity-next-nginx-ingress"
+  cpRepo: "checkpoint/infinity-next-nano-agent"
 imagePullSecrets: []
-nameOverride: "juice-shop"
-fullnameOverride: "juice-shop"
 appURL: "juice-shop.checkpoint.com"
+mysvcname: "juice-shop"
+mysvcport: "8080"
 
 serviceAccount:
   # Specifies whether a service account should be created
