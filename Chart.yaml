@@ -1,6 +1,6 @@
 apiVersion: v2
-name: juice-chart
-description: A Helm chart for Juice Shop Application with Infinty Next
+name: CheckPoint-WAAP
+description: A Helm chart for deploying Check Point WAAP
 
 # A chart can be either an 'application' or a 'library' chart.
 #
