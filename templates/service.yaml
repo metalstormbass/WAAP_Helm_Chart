@@ -14,7 +14,7 @@ metadata:
     agentVersion: {{ .Chart.Version }}
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
     service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
-    # service.beta.kubernetes.io/azure-dns-label-name: {{ .Release.Namespace }} 
+    service.beta.kubernetes.io/azure-dns-label-name: {{ .Release.Namespace }} 
 spec:
   type: LoadBalancer 
   ports:
