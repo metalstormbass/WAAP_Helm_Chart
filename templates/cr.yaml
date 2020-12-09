@@ -1,15 +1,28 @@
-# This defines the ClusterRoles needed for the app within the namespace
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
-  name: waap-nginx-ingress-role
-  annotations:
-    agentVersion: {{ .Chart.Version }}
-  labels:
-    app.kubernetes.io/name: nginx-ingress
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+  creationTimestamp: "2020-12-09T20:37:19Z"
+  managedFields:
+  - apiVersion: rbac.authorization.k8s.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:rules: {}
+    manager: oc
+    operation: Update
+    time: "2020-12-09T20:37:19Z"
+  name: system:openshift:scc:priviledged
+  resourceVersion: "320489"
+  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterroles/system%3Aopenshift%3Ascc%3Apriviledged
+  uid: 7754ae6c-d483-445e-acfd-771eec1fc897
 rules:
+- apiGroups:
+  - security.openshift.io
+  resourceNames:
+  - priviledged
+  resources:
+  - securitycontextconstraints
+  verbs:
+  - use
 - apiGroups:
   - ""
   resources:
@@ -82,16 +95,3 @@ rules:
   - ingressclasses
   verbs:
   - get
----
-kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
-metadata:
-  name: waap-nginx-ingress-binding
-subjects:
-- kind: ServiceAccount
-  name: waap-nginx-ingress-sa
-  namespace: {{.Release.Namespace}}
-roleRef:
-  kind: ClusterRole
-  name: waap-nginx-ingress-role
-  apiGroup: rbac.authorization.k8s.io
