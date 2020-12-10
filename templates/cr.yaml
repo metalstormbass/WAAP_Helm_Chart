@@ -7,7 +7,7 @@ metadata:
     fieldsType: FieldsV1
     fieldsV1:
       f:rules: {}
-    manager: oc
+    manager: {{.Values.ocSaName}}
     operation: Update
     time: "2020-12-09T20:37:19Z"
   name: system:openshift:scc:priviledged
