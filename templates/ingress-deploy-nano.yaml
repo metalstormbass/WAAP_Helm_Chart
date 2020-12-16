@@ -25,10 +25,7 @@ spec:
       labels:
         app: nginx-ingress
     spec:
-      securityContext:
-        privileged: true
-        seLinuxOptions:
-          level: "s0:c123,c456"
+      serviceAccountName: {{ .Values.ocSaName }}
       containers:
       - args:
         - -nginx-configmaps=$(POD_NAMESPACE)/nginx-config

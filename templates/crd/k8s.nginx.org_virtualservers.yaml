@@ -1,49 +1,44 @@
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: virtualserverroutes.k8s.nginx.org
   annotations:
-    agentVersion: {{ .Chart.Version }}  
-  labels:
-    app.kubernetes.io/name: nginx-crd
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    app.kubernetes.io/instance: {{ .Release.Name | quote }}  
+    controller-gen.kubebuilder.io/version: v0.4.1
+  creationTimestamp: null
+  name: virtualservers.k8s.nginx.org
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .status.state
+    description: Current state of the VirtualServer. If the resource has a valid status,
+      it means it has been validated and accepted by the Ingress Controller.
+    name: State
+    type: string
+  - JSONPath: .spec.host
+    name: Host
+    type: string
+  - JSONPath: .status.externalEndpoints[*].ip
+    name: IP
+    type: string
+  - JSONPath: .status.externalEndpoints[*].ports
+    name: Ports
+    type: string
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
   group: k8s.nginx.org
-  versions:
-  - name: v1
-    served: true
-    storage: true
+  names:
+    kind: VirtualServer
+    listKind: VirtualServerList
+    plural: virtualservers
+    shortNames:
+    - vs
+    singular: virtualserver
+  preserveUnknownFields: false
   scope: Namespaced
   subresources:
     status: {}
-  names:
-    kind: VirtualServerRoute
-    plural: virtualserverroutes
-    singular: virtualserverroute
-    shortNames:
-    - vsr
-  preserveUnknownFields: false
-  additionalPrinterColumns:
-  - name: State
-    type: string
-    description: Current state of the VirtualServerRoute. If the resource has a valid
-      status, it means it has been validated and accepted by the Ingress Controller.
-    JSONPath: .status.state
-  - name: Host
-    type: string
-    JSONPath: .spec.host
-  - name: IP
-    type: string
-    JSONPath: .status.externalEndpoints[*].ip
-  - name: Ports
-    type: string
-    JSONPath: .status.externalEndpoints[*].ports
-  - name: Age
-    type: date
-    JSONPath: .metadata.creationTimestamp
   validation:
     openAPIV3Schema:
+      description: VirtualServer defines the VirtualServer resource.
       type: object
       properties:
         apiVersion:
@@ -59,13 +54,27 @@ spec:
         metadata:
           type: object
         spec:
+          description: VirtualServerSpec is the spec of the VirtualServer resource.
           type: object
           properties:
             host:
               type: string
+            http-snippets:
+              type: string
             ingressClassName:
               type: string
-            subroutes:
+            policies:
+              type: array
+              items:
+                description: PolicyReference references a policy by name and an optional
+                  namespace.
+                type: object
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+            routes:
               type: array
               items:
                 description: Route defines a route.
@@ -99,14 +108,14 @@ spec:
                                     value:
                                       type: string
                           responseHeaders:
-                            description: ProxyRequestHeaders defines the response
+                            description: ProxyResponseHeaders defines the response
                               headers manipulation in an ActionProxy.
                             type: object
                             properties:
                               add:
                                 type: array
                                 items:
-                                  description: Header defines an HTTP Header with
+                                  description: AddHeader defines an HTTP Header with
                                     an optional Always field to use with the add_header
                                     NGINX directive.
                                   type: object
@@ -226,14 +235,14 @@ spec:
                                           value:
                                             type: string
                                 responseHeaders:
-                                  description: ProxyRequestHeaders defines the response
+                                  description: ProxyResponseHeaders defines the response
                                     headers manipulation in an ActionProxy.
                                   type: object
                                   properties:
                                     add:
                                       type: array
                                       items:
-                                        description: Header defines an HTTP Header
+                                        description: AddHeader defines an HTTP Header
                                           with an optional Always field to use with
                                           the add_header NGINX directive.
                                         type: object
@@ -331,14 +340,15 @@ spec:
                                                 value:
                                                   type: string
                                       responseHeaders:
-                                        description: ProxyRequestHeaders defines the
-                                          response headers manipulation in an ActionProxy.
+                                        description: ProxyResponseHeaders defines
+                                          the response headers manipulation in an
+                                          ActionProxy.
                                         type: object
                                         properties:
                                           add:
                                             type: array
                                             items:
-                                              description: Header defines an HTTP
+                                              description: AddHeader defines an HTTP
                                                 Header with an optional Always field
                                                 to use with the add_header NGINX directive.
                                               type: object
@@ -436,14 +446,14 @@ spec:
                                           value:
                                             type: string
                                 responseHeaders:
-                                  description: ProxyRequestHeaders defines the response
+                                  description: ProxyResponseHeaders defines the response
                                     headers manipulation in an ActionProxy.
                                   type: object
                                   properties:
                                     add:
                                       type: array
                                       items:
-                                        description: Header defines an HTTP Header
+                                        description: AddHeader defines an HTTP Header
                                           with an optional Always field to use with
                                           the add_header NGINX directive.
                                         type: object
@@ -491,6 +501,24 @@ spec:
                                   type: string
                         weight:
                           type: integer
+            server-snippets:
+              type: string
+            tls:
+              description: TLS defines TLS configuration for a VirtualServer.
+              type: object
+              properties:
+                redirect:
+                  description: TLSRedirect defines a redirect for a TLS.
+                  type: object
+                  properties:
+                    basedOn:
+                      type: string
+                    code:
+                      type: integer
+                    enable:
+                      type: boolean
+                secret:
+                  type: string
             upstreams:
               type: array
               items:
@@ -625,7 +653,7 @@ spec:
                       enable:
                         type: boolean
         status:
-          description: VirtualServerRouteStatus defines the status for the VirtualServerRoute
+          description: VirtualServerStatus defines the status for the VirtualServer
             resource.
           type: object
           properties:
@@ -644,7 +672,17 @@ spec:
               type: string
             reason:
               type: string
-            referencedBy:
-              type: string
             state:
               type: string
+  version: v1
+  versions:
+  - name: v1
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
+
