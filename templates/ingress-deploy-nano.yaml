@@ -25,6 +25,10 @@ spec:
       labels:
         app: nginx-ingress
     spec:
+      volumes:                          
+        - name: dshm
+          emptyDir:
+            medium: Memory
       serviceAccountName: {{ .Values.ocSaName }}
       containers:
       - args:
@@ -44,6 +48,9 @@ spec:
         image: {{.Values.image.nginxCtlCpRepo}}
         imagePullPolicy: IfNotPresent
         name: nginx-ingress-container
+        volumeMounts:                 
+        - mountPath: /dev/shm
+          name: dshm
         ports:
         - containerPort: 80
           name: http
@@ -62,8 +69,14 @@ spec:
         command:
         - /cp-nano-agent
         image: {{.Values.image.cpRepo}}
+        env:
+        - name: LD_LIBRARY_PATH
+          value: /usr/lib/cpnano/
         imagePullPolicy: IfNotPresent
         name: cp-agent-container
+        volumeMounts:                 
+        - mountPath: /dev/shm
+          name: dshm
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File

@@ -8,8 +8,8 @@ replicaCount: 1
 #nanoToken: "insert your token here"
 
 image:
-  nginxCtlCpRepo: "checkpoint/infinity-next-nginx-ingress"
-  cpRepo: "checkpoint/infinity-next-nano-agent"
+  nginxCtlCpRepo: "checkpoint/infinity-next-nginx-ingress:127415"
+  cpRepo: "checkpoint/infinity-next-nano-agent:127415"
 imagePullSecrets: []
 appURL: ""
 mysvcname: ""
