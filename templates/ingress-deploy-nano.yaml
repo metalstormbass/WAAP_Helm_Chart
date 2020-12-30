@@ -8,6 +8,7 @@ metadata:
   namespace: {{.Release.Namespace}}
   annotations:
     agentVersion: {{ .Chart.Version }}
+    openshift.io/scc: waap-scc-priv
   labels:
     app.kubernetes.io/name: nginx-ingress-ctl
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
