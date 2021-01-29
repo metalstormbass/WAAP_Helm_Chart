@@ -10,9 +10,9 @@ data:
   set-real-ip-from: "0.0.0.0/0"
 # The line "load_module /usr/lib/nginx/modules/ngx_cp_attachment_module.so;" MUST be included as the first
 # line in the main-template field of your ConfigMap for inspection to work.
+# load_module /usr/lib/nginx/modules/ngx_cp_attachment_module.so;
+# user  nginx;
   main-template: |
-    load_module /usr/lib/nginx/modules/ngx_cp_attachment_module.so;
-    user  nginx;
     worker_processes  {{`{{.WorkerProcesses}}`}};
     {{`{{- if .WorkerRlimitNofile}}
     worker_rlimit_nofile {{.WorkerRlimitNofile}};{{end}}`}}
