@@ -70,9 +70,9 @@ spec:
         command:
         - /cp-nano-agent
         image: {{.Values.image.cpRepo}}
-        env:
-        - name: LD_LIBRARY_PATH
-          value: /usr/lib/cpnano/
+#        env:
+#        - name: LD_LIBRARY_PATH
+#          value: /usr/lib/cpnano/
         imagePullPolicy: IfNotPresent
         name: cp-agent-container
         volumeMounts:                 

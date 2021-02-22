@@ -1,10 +1,12 @@
-allowHostDirVolumePlugin: false
+#allowHostDirVolumePlugin: false
+allowHostDirVolumePlugin: true
 allowHostIPC: false
 allowHostNetwork: false
 allowHostPID: false
 allowHostPorts: false
 allowPrivilegeEscalation: true
-allowPrivilegedContainer: false
+#allowPrivilegedContainer: false
+allowPrivilegedContainer: true
 allowedCapabilities: null
 apiVersion: security.openshift.io/v1
 defaultAddCapabilities: null
@@ -45,3 +47,4 @@ volumes:
 - persistentVolumeClaim
 - projected
 - secret
+
