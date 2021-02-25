@@ -4,6 +4,7 @@ metadata:
   name: nginx-config
   annotations:
     agentVersion: {{ .Chart.Version }}
+    haproxy.router.openshift.io/ip_whitelist : 192.169.0.0/32
   labels:
     app.kubernetes.io/name: nginx-config
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
